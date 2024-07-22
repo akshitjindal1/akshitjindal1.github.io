@@ -4,8 +4,11 @@ description: >- # this means to ignore newlines until "baseurl:"
   Akshit Jindal's Professional Resume
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://akshitjindal1.github.io" # the base hostname & protocol for your site
-theme: minimal-mistakes-jekyll
+remote_theme: "mmistakes/minimal-mistakes@4.26.2"
 
 # Build settings
 markdown: kramdown
+plugins:
+        - jekyll-include-cache
+
 
