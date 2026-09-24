@@ -12,6 +12,7 @@ export interface Publication {
   pdf?: string;
   code?: string;
   slides?: string;
+  supplemental?: string;
   tags: string[];  // Adding the required tags field
 }
 

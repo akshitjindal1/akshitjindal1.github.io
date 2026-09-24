@@ -11,7 +11,10 @@ import {
 
 export default function ResumePage() {
   return (
-    <Layout>
+    <Layout
+      title="Resume"
+      description="Resume of Akshit Jindal — PhD Scholar in ML security at IIIT-Delhi, previously Senior Software Engineer at Samsung Research Institute."
+    >
       {/* Header with Download Button */}
       <div className="bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-800 dark:to-neutral-900">
         <Container>

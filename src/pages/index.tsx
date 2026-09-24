@@ -17,10 +17,21 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold">
-                Site under construction.
+                Machine Learning Security Researcher
               </h1>
               <p className="text-xl text-neutral-600 dark:text-neutral-300">
-                Though my CV is up to date.
+                PhD Scholar at IIIT-Delhi exploring the security aspects of machine learning systems,
+                focusing on model extraction, backdoor detection, and adversarial attacks.
+              </p>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                This site is being rebuilt. My{' '}
+                <Link
+                  href="/resume"
+                  className="underline underline-offset-2 hover:text-primary-600 dark:hover:text-primary-400"
+                >
+                  CV
+                </Link>{' '}
+                is current.
               </p>
               <div className="flex space-x-4">
                 <Link href="/publications">
@@ -66,10 +77,10 @@ export default function HomePage() {
                   Latest Publication
                 </div>
                 <h3 className="text-xl font-semibold mb-3">
-                  Army of Thieves: Enhancing Black-Box Model Extraction via Ensemble-based Sample Selection
+                  CLIP-Inspector: Model-Level Backdoor Detection for Prompt-Tuned CLIP via OOD Trigger Inversion
                 </h3>
                 <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-                  WACV 2024 (Poster)
+                  CVPR 2026, Findings Track (Poster)
                 </p>
                 <Link href="/publications" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 inline-flex items-center">
                   Read More

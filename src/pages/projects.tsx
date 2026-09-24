@@ -17,7 +17,10 @@ export default function ProjectsPage() {
   );
 
   return (
-    <Layout>
+    <Layout
+      title="Projects"
+      description="Research implementations, open-source contributions and academic projects in machine learning security by Akshit Jindal."
+    >
       <PageHeader
         title="Projects"
         description="Research implementations, open-source contributions, and academic projects in machine learning security and related areas."

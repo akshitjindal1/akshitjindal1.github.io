@@ -20,6 +20,7 @@ interface BlogPostProps {
     tags: string[];
     image: string;
     readingTime: number;
+    excerpt: string;
   };
   content: any; // MDX content
   slug: string;
@@ -32,7 +33,11 @@ export default function BlogPost({ frontMatter, content, slug }: BlogPostProps) 
   }
 
   return (
-    <Layout>
+    <Layout
+      title={frontMatter.title}
+      description={frontMatter.excerpt}
+      image={frontMatter.image}
+    >
       {/* Hero Section with Post Image */}
       <div className="relative h-96">
         <img
@@ -145,7 +150,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       author: frontMatter.author || 'Anonymous',
       tags: frontMatter.tags || [],
       image: frontMatter.image || '/assets/img/blog/default.jpg',
-      readingTime: frontMatter.readingTime || 5
+      readingTime: frontMatter.readingTime || 5,
+      excerpt: frontMatter.excerpt || content.trim().slice(0, 155)
     };
 
     return {
