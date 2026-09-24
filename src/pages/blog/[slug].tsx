@@ -1,170 +1,77 @@
 // src/pages/blog/[slug].tsx
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import Link from 'next/link';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { serialize } from 'next-mdx-remote/serialize';
 import { Layout } from '@/components/layout/Layout';
 import { Container } from '@/components/ui/container';
-import { Section } from '@/components/ui/section';
-import { Calendar, Clock, ArrowLeft } from '@/components/ui/Icons';
+import { Tag } from '@/components/ui/pill-link';
+import { ArrowLeft } from '@/components/ui/Icons';
+import { profile } from '@/data/profile';
+import { getPostSlugs, getPostSource } from '@/lib/blog';
+import { BlogPost } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
-import { MDXRemote } from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
-import Link from 'next/link';
-import path from 'path';
-import fs from 'fs';
-import matter from 'gray-matter';
 
-interface BlogPostProps {
-  frontMatter: {
-    title: string;
-    date: string;
-    author: string;
-    tags: string[];
-    image: string;
-    readingTime: number;
-    excerpt: string;
-  };
-  content: any; // MDX content
-  slug: string;
+interface BlogPostPageProps {
+  post: BlogPost;
+  source: MDXRemoteSerializeResult;
 }
 
-export default function BlogPost({ frontMatter, content, slug }: BlogPostProps) {
-  // Add null checks for frontMatter
-  if (!frontMatter) {
-    return <div>Loading...</div>;
-  }
-
+export default function BlogPostPage({ post, source }: BlogPostPageProps) {
   return (
-    <Layout
-      title={frontMatter.title}
-      description={frontMatter.excerpt}
-      image={frontMatter.image}
-    >
-      {/* Hero Section with Post Image */}
-      <div className="relative h-96">
-        <img
-          src={frontMatter.image}
-          alt={frontMatter.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 flex items-center">
-          <Container>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              {frontMatter.title}
+    <Layout title={post.title} description={post.excerpt}>
+      <Container className="max-w-3xl">
+        <article className="pb-6 pt-10 md:pt-14">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-accent"
+          >
+            <ArrowLeft size={14} />
+            All posts
+          </Link>
+
+          <header className="mt-8 border-b border-line pb-8">
+            <p className="font-mono text-xs text-muted">
+              {formatDate(post.date)} · {post.readingTime} min read
+            </p>
+            <h1 className="mt-3 font-serif text-4xl font-medium leading-tight tracking-tight md:text-5xl">
+              {post.title}
             </h1>
-            <div className="flex items-center gap-4 text-white/80">
-              <div className="flex items-center">
-                <Calendar size={16} className="mr-1" />
-                {formatDate(frontMatter.date)}
+            {post.excerpt && <p className="mt-4 text-lg leading-relaxed text-muted">{post.excerpt}</p>}
+            {post.tags.length > 0 && (
+              <div className="mt-5 flex flex-wrap gap-1.5">
+                {post.tags.map((tag) => (
+                  <Tag key={tag}>{tag}</Tag>
+                ))}
               </div>
-              <div className="flex items-center">
-                <Clock size={16} className="mr-1" />
-                {frontMatter.readingTime} min read
-              </div>
-            </div>
-          </Container>
-        </div>
-      </div>
+            )}
+          </header>
 
-      {/* Post Content */}
-      <Section>
-        <Container>
-          <div className="max-w-3xl mx-auto">
-            {/* Back to Blog Link */}
-            <Link 
-              href="/blog"
-              className="inline-flex items-center text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 mb-8"
-            >
-              <ArrowLeft size={16} className="mr-2" />
-              Back to Blog
-            </Link>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {frontMatter.tags?.map((tag, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-neutral-100 dark:bg-neutral-800 rounded-full text-sm"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* Article Content */}
-            <article className="prose prose-lg dark:prose-invert max-w-none">
-              <MDXRemote {...content} />
-            </article>
-
-            {/* Author Bio */}
-            <div className="mt-12 pt-8 border-t dark:border-neutral-800">
-              <div className="flex items-center gap-4">
-                <img
-                  src="/assets/img/profile.jpg"
-                  alt={frontMatter.author}
-                  className="w-16 h-16 rounded-full"
-                />
-                <div>
-                  <h3 className="font-semibold">{frontMatter.author}</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400">
-                    PhD Scholar at IIIT-Delhi, researching machine learning security
-                    and adversarial ML.
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="prose prose-lg mt-8">
+            <MDXRemote {...source} />
           </div>
-        </Container>
-      </Section>
+
+          <footer className="mt-14 flex items-center gap-4 border-t border-line pt-8">
+            <img src={profile.photo} alt="" className="h-14 w-14 rounded-full object-cover ring-1 ring-line" />
+            <div>
+              <p className="font-medium">{post.author}</p>
+              <p className="text-sm text-muted">
+                PhD scholar at IIIT-Delhi, researching machine learning security.
+              </p>
+            </div>
+          </footer>
+        </article>
+      </Container>
     </Layout>
   );
 }
 
-// This function gets called at build time to generate the paths
-export const getStaticPaths: GetStaticPaths = async () => {
-  const postsDirectory = path.join(process.cwd(), 'src/content/blog');
-  const filenames = fs.readdirSync(postsDirectory);
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: getPostSlugs().map((slug) => ({ params: { slug } })),
+  fallback: false,
+});
 
-  const paths = filenames.map(filename => ({
-    params: { slug: filename.replace('.mdx', '') }
-  }));
-
-  return {
-    paths,
-    fallback: false
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  try {
-    const postsDirectory = path.join(process.cwd(), 'src/content/blog');
-    const filePath = path.join(postsDirectory, `${params?.slug}.mdx`);
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-
-    const { data: frontMatter, content } = matter(fileContents);
-    const mdxSource = await serialize(content);
-
-    // Ensure all required fields exist with defaults
-    const processedFrontMatter = {
-      title: frontMatter.title || 'Untitled Post',
-      date: frontMatter.date || new Date().toISOString(),
-      author: frontMatter.author || 'Anonymous',
-      tags: frontMatter.tags || [],
-      image: frontMatter.image || '/assets/img/blog/default.jpg',
-      readingTime: frontMatter.readingTime || 5,
-      excerpt: frontMatter.excerpt || content.trim().slice(0, 155)
-    };
-
-    return {
-      props: {
-        frontMatter: processedFrontMatter,
-        content: mdxSource,
-        slug: params?.slug
-      }
-    };
-  } catch (error) {
-    console.error('Error loading blog post:', error);
-    return {
-      notFound: true // This will show the 404 page
-    };
-  }
+export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params }) => {
+  const { post, content } = getPostSource(params?.slug as string);
+  return { props: { post, source: await serialize(content) } };
 };

@@ -1,64 +1,50 @@
 // src/components/layout/Footer.tsx
 import React from 'react';
-import { Mail, Github, Linkedin } from '@/components/ui/Icons';
+import { FileDown, Github, Linkedin, Mail } from '@/components/ui/Icons';
+import { Container } from '@/components/ui/container';
 import { SITE_CONFIG } from '@/lib/constants';
+
+const LINKS = [
+  { label: 'Email', href: `mailto:${SITE_CONFIG.email}`, Icon: Mail },
+  { label: 'GitHub', href: SITE_CONFIG.github, Icon: Github },
+  { label: 'LinkedIn', href: SITE_CONFIG.linkedin, Icon: Linkedin },
+  { label: 'CV (PDF)', href: SITE_CONFIG.cv, Icon: FileDown },
+];
 
 export function Footer() {
   return (
-    <footer className="bg-neutral-50 dark:bg-neutral-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <p className="text-neutral-600 dark:text-neutral-400">IIIT-Delhi</p>
-            <p className="text-neutral-600 dark:text-neutral-400">New Delhi, India</p>
-            <a 
-              href={`mailto:${SITE_CONFIG.email}`}
-              className="text-primary-600 dark:text-primary-500 hover:text-primary-700 dark:hover:text-primary-400"
-            >
-              {SITE_CONFIG.email}
-            </a>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Connect</h3>
-            <div className="space-y-2">
-              <a
-                href={SITE_CONFIG.github}
-                className="flex items-center text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-500"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Github className="w-5 h-5 mr-2" />
-                GitHub
-              </a>
-              <a
-                href={SITE_CONFIG.linkedin}
-                className="flex items-center text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-500"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Linkedin className="w-5 h-5 mr-2" />
-                LinkedIn
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-4">About</h3>
-            <p className="text-neutral-600 dark:text-neutral-400">
-              PhD Scholar researching machine learning security, focusing on model extraction
-              and adversarial attacks.
-            </p>
-          </div>
+    <footer className="mt-10 border-t border-line">
+      <Container className="flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="font-serif text-lg font-medium">{SITE_CONFIG.author}</p>
+          <p className="mt-1 text-sm text-muted">PhD Scholar · IIIT-Delhi, New Delhi, India</p>
+          <a
+            href={`mailto:${SITE_CONFIG.email}`}
+            className="mt-1 inline-block text-sm text-muted underline-offset-4 hover:text-accent hover:underline"
+          >
+            {SITE_CONFIG.email}
+          </a>
         </div>
-        
-        <div className="mt-8 pt-8 border-t border-neutral-200 dark:border-neutral-800">
-          <p className="text-center text-neutral-600 dark:text-neutral-400">
-            © {new Date().getFullYear()} {SITE_CONFIG.author}. All rights reserved.
-          </p>
-        </div>
-      </div>
+        <ul className="flex items-center gap-1">
+          {LINKS.map(({ label, href, Icon }) => (
+            <li key={label}>
+              <a
+                href={href}
+                aria-label={label}
+                title={label}
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors hover:bg-line/60 hover:text-accent"
+              >
+                <Icon size={18} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Container>
+      <Container className="pb-8">
+        <p className="text-xs text-faint">© {new Date().getFullYear()} {SITE_CONFIG.author}</p>
+      </Container>
     </footer>
   );
 }

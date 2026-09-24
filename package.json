@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/sitemap.mjs",
+    "serve": "node scripts/preview.mjs",
+    "preview": "npm run build && npm run serve",
     "start": "next start",
     "lint": "next lint"
   },
