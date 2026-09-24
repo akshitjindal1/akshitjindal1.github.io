@@ -5,7 +5,7 @@ import { Container } from '@/components/ui/container';
 import { Section } from '@/components/ui/section';
 import { Card, CardContent } from '@/components/ui/card';
 import { PageHeader } from '@/components/layout/PageHeader';
-import { Download, ExternalLink, Search, Filter } from '@/components/ui/Icons';
+import { Download, ExternalLink, Search, Filter, Book, Presentation } from '@/components/ui/Icons';
 
 export default function PublicationsPage() {
   const [filter, setFilter] = useState('all');
@@ -22,7 +22,10 @@ export default function PublicationsPage() {
   });
 
   return (
-    <Layout>
+    <Layout
+      title="Publications"
+      description="Peer-reviewed publications and patents by Akshit Jindal on machine learning security, model extraction, backdoor detection and adversarial ML."
+    >
       <PageHeader 
         title="Publications"
         description="My research focuses on machine learning security, particularly in the areas of model extraction and adversarial machine learning."
@@ -138,6 +141,28 @@ function PublicationCard({ publication }: { publication: Publication }) {
                   PDF
                 </a>
               )}
+              {publication.supplemental && (
+                <a
+                  href={publication.supplemental}
+                  className="inline-flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Book size={18} className="mr-2" />
+                  Supplementary
+                </a>
+              )}
+              {publication.slides && (
+                <a
+                  href={publication.slides}
+                  className="inline-flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Presentation size={18} className="mr-2" />
+                  Slides
+                </a>
+              )}
               {publication.code && (
                 <a 
                   href={publication.code}
@@ -166,6 +191,17 @@ function PublicationCard({ publication }: { publication: Publication }) {
 // Sample publication data
 const publications = [
   {
+    title: "CLIP-Inspector: Model-Level Backdoor Detection for Prompt-Tuned CLIP via OOD Trigger Inversion",
+    authors: "Akshit Jindal, Saket Anand, Chetan Arora, Vikram Goyal",
+    venue: "CVPR 2026 (Findings Track)",
+    year: 2026,
+    type: "conference" as PublicationType,
+    abstract: "Organisations with limited data and computational resources increasingly outsource model training to Machine Learning as a Service (MLaaS) providers, who adapt vision-language models (VLMs) such as CLIP to downstream tasks via prompt tuning rather than training from scratch. This semi-honest setting creates a security risk where a malicious provider can follow the prompt-tuning protocol yet implant a backdoor, forcing triggered inputs to be classified into an attacker-chosen class, even for out-of-distribution (OOD) data. To address this model-level verification problem, we introduce CLIP-Inspector (CI), a backdoor detection method designed for prompt-tuned CLIP models. Assuming white-box access to the delivered model and a pool of unlabeled OOD images, CI reconstructs possible triggers for each class to determine if the model exhibits backdoor behaviour or not.",
+    pdf: "https://openaccess.thecvf.com/content/CVPR2026F/html/Jindal_CLIP-Inspector_Model-Level_Backdoor_Detection_for_Prompt-Tuned_CLIP_via_OOD_Trigger_CVPRF_2026_paper.html",
+    supplemental: "https://openaccess.thecvf.com/content/CVPR2026F/supplemental/Jindal_CLIP-Inspector_Model-Level_Backdoor_CVPRF_2026_supplemental.pdf",
+    tags: ["Backdoor Detection", "CLIP", "Vision-Language Models", "CVPR"]
+  },
+  {
     title: "Army of Thieves: Enhancing Black-Box Model Extraction via Ensemble-based Sample Selection",
     authors: "Akshit Jindal, Vikram Goyal, Saket Anand, Chetan Arora",
     venue: "WACV 2024",
@@ -174,7 +210,7 @@ const publications = [
     abstract: "We propose a novel approach to enhance the effectiveness of black-box model extraction attacks using ensemble-based sample selection strategies...",
     pdf: "https://openaccess.thecvf.com/content/WACV2024/html/Jindal_Army_of_Thieves_Enhancing_Black-Box_Model_Extraction_via_Ensemble_Based_WACV_2024_paper.html",
     code: "https://github.com/akshitjindal1/AOT_WACV",
-    slides: "https://docs.google.com/presentation/d/1jVxVVKzJEfzxpsY5vxQlbQFXbcDP3mrftoQ8ZQouFb4/edit?usp=sharing",
+    slides: "https://docs.google.com/presentation/d/1jVxVVKzJEfzxpsY5vxQlbQFXbcDP3mrftoQ8ZQouFb4/preview",
     tags: ["Model Extraction", "Machine Learning Security", "WACV"]
   },
   {
