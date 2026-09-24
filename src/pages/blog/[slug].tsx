@@ -1,4 +1,5 @@
 // src/pages/blog/[slug].tsx
+import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -6,7 +7,7 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { Layout } from '@/components/layout/Layout';
 import { Container } from '@/components/ui/container';
 import { Tag } from '@/components/ui/pill-link';
-import { ArrowLeft } from '@/components/ui/Icons';
+import { ArrowLeft, ArrowUpRight } from '@/components/ui/Icons';
 import { profile } from '@/data/profile';
 import { getPostSlugs, getPostSource } from '@/lib/blog';
 import { BlogPost } from '@/lib/types';
@@ -38,6 +39,26 @@ export default function BlogPostPage({ post, source }: BlogPostPageProps) {
               {post.title}
             </h1>
             {post.excerpt && <p className="mt-4 text-lg leading-relaxed text-muted">{post.excerpt}</p>}
+            {post.published.length > 0 && (
+              <p className="mt-5 text-sm text-muted">
+                Originally published on{' '}
+                {post.published.map((link, i) => (
+                  <React.Fragment key={link.href}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-0.5 text-accent underline-offset-4 hover:underline"
+                    >
+                      {link.label}
+                      <ArrowUpRight size={13} />
+                    </a>
+                    {i < post.published.length - 2 ? ', ' : i === post.published.length - 2 ? ' and ' : ''}
+                  </React.Fragment>
+                ))}
+                .
+              </p>
+            )}
             {post.tags.length > 0 && (
               <div className="mt-5 flex flex-wrap gap-1.5">
                 {post.tags.map((tag) => (

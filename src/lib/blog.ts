@@ -26,6 +26,10 @@ export function getPostSource(slug: string) {
     excerpt: data.excerpt || content.trim().slice(0, 155),
     tags: data.tags || [],
     readingTime: calculateReadingTime(content),
+    published: (data.published || []).map((p: { label: string; url: string }) => ({
+      label: p.label,
+      href: p.url,
+    })),
   };
   return { post, content };
 }

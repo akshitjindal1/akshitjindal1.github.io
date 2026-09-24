@@ -57,4 +57,6 @@ export interface BlogPost {
   excerpt: string;
   tags: string[];
   readingTime: number;
+  // Other places the post has been published, e.g. LinkedIn.
+  published: Link[];
 }

@@ -8,10 +8,11 @@ export function PostList({ posts }: { posts: BlogPost[] }) {
   return (
     <ul className="divide-y divide-line">
       {posts.map((post) => (
-        <li key={post.slug}>
-          <Link href={`/blog/${post.slug}`} className="group block py-5 first:pt-0">
+        <li key={post.slug} className="py-5 first:pt-0">
+          <Link href={`/blog/${post.slug}`} className="group block">
             <p className="font-mono text-xs text-muted">
               {formatDate(post.date)} · {post.readingTime} min read
+              {post.published.length > 0 && ` · Also on ${post.published.map((link) => link.label).join(', ')}`}
             </p>
             <h3 className="mt-1.5 font-serif text-xl font-medium tracking-tight transition-colors group-hover:text-accent">
               {post.title}

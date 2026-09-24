@@ -1,0 +1,41 @@
+---
+title: "Your Models Are Vulnerable"
+date: "2022-10-06"
+author: "Akshit Jindal"
+tags: ["ML Security", "Model Extraction"]
+excerpt: "What a model stealing attack is, how one is carried out, who might try to steal a model and why, and where our research on model extraction is headed."
+published:
+  - label: "LinkedIn"
+    url: "https://www.linkedin.com/pulse/your-models-vulnerable-ihub-anubhuti/"
+  - label: "iHub Anubhuti"
+    url: "https://ihub-anubhuti-iiitd.org/pages/blog-models-vulnerable"
+---
+
+## The reach of ML in all fields
+
+Machine learning algorithms have advanced to a stage where they can outperform humans when presented with data. Their applications have become increasingly common and widespread today, but their susceptibility to attacks remains a significant concern. When presented with a trivial but adversarial input, these algorithms fail miserably, whereas a human would still be able to perform well.
+
+## What is a model stealing/extraction attack?
+
+Typically, to make a “trained” machine learning model accessible to the public, a company hosts it as an inference API. This publicly accessible model will be called the “victim” model. The inference API allows a customer to submit queries to the model and receive the model’s prediction/output in return, usually for a minimal monetary cost. E.g. Google’s Text-to-Speech API allows you to input sentences and receive the generated sound. This generation is typically performed by a neural network in the background.
+
+The above setup makes trained ML models valuable intellectual property, which serves as motivation for thieves to try and steal these models. A model extraction attack is a way to reverse-engineer the black box victim models and attempt to create a duplicate copy which performs just as well as the victim model.
+
+## How is an extraction attack carried out?
+
+The process of model extraction is quite similar to knowledge distillation. Attackers collect a large number of unlabelled data samples, which are then sent to the victim model as queries. The victim model outputs a prediction for each query, which the thief treats as the ground truth label for the query. The prediction might range from the confidence scores (softmax probabilities) to just the hard label (class name). These query-output pairs serve as training data for the thief’s own model, allowing them to create a copy of the victim model, which we’ll call the thief model. The attacks are relatively cheaper than training a model from scratch and do not require extensive training and parameter tuning.
+
+## Who can try to steal a model and why?
+
+- A malicious competitor or adversary might steal a model to craft adversarial examples. These examples can be used to “break” the victim model and showcase its shortcomings.
+- The victim themselves can try to gauge the security level of their model by performing such attacks.
+- A thief can try to steal the model for monetary gain, ideally by rebranding it as their own model and exposing it via a much cheaper API.
+
+[Akshit Jindal](https://www.linkedin.com/in/akshitjindal1/), Ph.D. – IIIT-D under the mentorship of [Dr. Vikram Goyal](https://www.linkedin.com/in/vikram-goyal-7a684213/), Professor, IIIT-D is researching how an ML model can be efficiently attacked in the least informative setting and still be extracted to a good enough extent.
+
+## Our Project scope and future goals
+
+- Provide a tool/framework for performing such attacks on trained models
+- Coming up with new methods for performing attacks in more and more information-restricted settings
+- Building defences to prevent such attacks in the future, showcasing the efficiency of such defences via our tool
+- As these methods require a deep dive into the inner workings of ML/DL models, our work can also contribute to the explainability aspect.
