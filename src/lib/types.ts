@@ -1,58 +1,60 @@
 // src/lib/types.ts
 
-export type PublicationType = "conference" | "journal" | "workshop" | "patent";
+export interface Link {
+  label: string;
+  href: string;
+}
+
+export type PublicationType = 'conference' | 'journal' | 'workshop' | 'patent';
 
 export interface Publication {
+  id: string;
   title: string;
-  authors: string;
+  authors: string[];
   venue: string;
+  venueShort: string;
+  note?: string;
   year: number;
   type: PublicationType;
   abstract: string;
-  pdf?: string;
-  code?: string;
-  slides?: string;
-  supplemental?: string;
-  tags: string[];  // Adding the required tags field
+  figure?: { src: string; alt: string };
+  links: Link[];
+  bibtex?: string;
 }
 
-
-// src/lib/types.ts
-type ProjectCategory = 'ml-security' | 'adversarial-ml' | 'research';
+export type ProjectCategory = 'Research' | 'Industry' | 'Academic';
 
 export interface Project {
   title: string;
-  description: string;
-  image: string;
+  summary: string;
   category: ProjectCategory;
-  technologies: string[];
-  github?: string;
-  demo?: string;
+  period: string;
+  image?: { src: string; alt: string };
+  topics: string[];
+  links: Link[];
+}
+
+export interface NewsItem {
+  date: string;
+  text: string;
+  link?: Link;
+}
+
+export interface CvEntry {
+  period: string;
+  title: string;
+  org: string;
+  location?: string;
+  details?: string[];
+  links?: Link[];
 }
 
 export interface BlogPost {
-  title: string;
   slug: string;
+  title: string;
   date: string;
   author: string;
   excerpt: string;
-  content: string;  
-  image: string;
   tags: string[];
   readingTime: number;
-}
-
-export interface BlogPostFrontMatter {
-  title: string;
-  date: string;
-  author: string;
-  tags: string[];
-  image: string;
-  readingTime: number;
-}
-
-interface BlogPostProps {
-  frontMatter: BlogPostFrontMatter;
-  content: any;
-  slug: string;
 }

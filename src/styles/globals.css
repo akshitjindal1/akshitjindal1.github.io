@@ -3,4 +3,103 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add any global styles below this line */
+@layer base {
+  :root {
+    --bg: 250 249 246;
+    --surface: 255 255 255;
+    --ink: 22 24 29;
+    --muted: 87 94 107;
+    --faint: 138 144 156;
+    --line: 229 226 219;
+    --accent: 15 118 110;
+    --accent-soft: 228 242 239;
+    color-scheme: light;
+  }
+
+  .dark {
+    --bg: 13 16 18;
+    --surface: 20 25 28;
+    --ink: 231 233 236;
+    --muted: 164 171 181;
+    --faint: 112 120 131;
+    --line: 37 44 49;
+    --accent: 94 214 197;
+    --accent-soft: 19 46 44;
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-bg text-ink;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.22);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  summary {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  /* Typography plugin wired to the theme tokens, so no prose-invert is needed. */
+  .prose {
+    --tw-prose-body: rgb(var(--ink) / 0.86);
+    --tw-prose-headings: rgb(var(--ink));
+    --tw-prose-lead: rgb(var(--muted));
+    --tw-prose-links: rgb(var(--accent));
+    --tw-prose-bold: rgb(var(--ink));
+    --tw-prose-counters: rgb(var(--muted));
+    --tw-prose-bullets: rgb(var(--faint));
+    --tw-prose-hr: rgb(var(--line));
+    --tw-prose-quotes: rgb(var(--ink));
+    --tw-prose-quote-borders: rgb(var(--accent) / 0.5);
+    --tw-prose-captions: rgb(var(--muted));
+    --tw-prose-code: rgb(var(--ink));
+    --tw-prose-pre-code: #e6e8eb;
+    --tw-prose-pre-bg: #14191c;
+    --tw-prose-th-borders: rgb(var(--line));
+    --tw-prose-td-borders: rgb(var(--line));
+  }
+
+  .prose :where(h2, h3):not(:where(.not-prose *)) {
+    font-family: var(--font-serif), ui-serif, Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .prose :where(a):not(:where(.not-prose *)) {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .prose :where(:not(pre) > code):not(:where(.not-prose *)) {
+    font-weight: 500;
+    font-size: 0.875em;
+    padding: 0.15em 0.35em;
+    border-radius: 0.3rem;
+    background: rgb(var(--line) / 0.6);
+  }
+
+  .prose :where(pre):not(:where(.not-prose *)) {
+    border: 1px solid rgb(var(--line));
+    border-radius: 0.75rem;
+  }
+}
