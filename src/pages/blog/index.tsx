@@ -26,7 +26,10 @@ export default function BlogListPage() {
   });
 
   return (
-    <Layout>
+    <Layout
+      title="Blog"
+      description="Writing on machine learning security, model extraction, backdoor attacks and adversarial ML by Akshit Jindal."
+    >
       <PageHeader
         title="Blog"
         description="Thoughts and insights on machine learning security, adversarial ML, and the intersection of AI and security."

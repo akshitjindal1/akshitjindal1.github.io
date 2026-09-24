@@ -23,3 +23,4 @@ export const Github = dynamic(() => import('lucide-react').then(m => m.Github), 
 export const Linkedin = dynamic(() => import('lucide-react').then(m => m.Linkedin), { ssr: false });
 export const Mail = dynamic(() => import('lucide-react').then(m => m.Mail), { ssr: false });
 export const Tag = dynamic(() => import('lucide-react').then(m => m.Tag), { ssr: false });
+export const Presentation = dynamic(() => import('lucide-react').then(m => m.Presentation), { ssr: false });
