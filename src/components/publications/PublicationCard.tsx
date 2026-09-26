@@ -25,7 +25,7 @@ function Authors({ authors }: { authors: string[] }) {
 function Figure({ publication }: { publication: Publication }) {
   if (publication.figure) {
     return (
-      <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg bg-white p-2 ring-1 ring-line">
+      <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg border-2 border-edge bg-white p-2 shadow-hard">
         <img
           src={publication.figure.src}
           alt={publication.figure.alt}
@@ -36,7 +36,7 @@ function Figure({ publication }: { publication: Publication }) {
     );
   }
   return (
-    <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-lg bg-accent-soft/60 text-accent ring-1 ring-line">
+    <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-lg border-2 border-edge bg-accent-soft/60 text-accent shadow-hard">
       <FileText size={28} strokeWidth={1.5} />
       <span className="font-mono text-[11px] tracking-wide">{publication.venueShort}</span>
     </div>

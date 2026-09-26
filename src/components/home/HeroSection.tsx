@@ -5,6 +5,7 @@ import { FileDown, Github, Linkedin, Mail } from '@/components/ui/Icons';
 import { Container } from '@/components/ui/container';
 import { profile } from '@/data/profile';
 import { SITE_CONFIG } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 
 const inlineLink = 'text-ink underline decoration-line decoration-1 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent';
 
@@ -29,6 +30,10 @@ const ACTIONS = [
   { label: 'GitHub', href: SITE_CONFIG.github, Icon: Github },
   { label: 'LinkedIn', href: SITE_CONFIG.linkedin, Icon: Linkedin },
 ];
+
+// Outlined with a hard offset shadow; hovering gives slightly and clicking presses the button flat.
+const actionButton =
+  'inline-flex items-center gap-2 rounded-full border-2 border-edge px-4 py-2 text-sm font-medium shadow-hard transition-[transform,box-shadow] duration-150 hover:translate-x-px hover:translate-y-px hover:shadow-hard-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none';
 
 export function HeroSection() {
   return (
@@ -71,11 +76,7 @@ export function HeroSection() {
                 href={href}
                 target={href.startsWith('http') ? '_blank' : undefined}
                 rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className={
-                  primary
-                    ? 'inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-medium text-bg transition-opacity hover:opacity-90'
-                    : 'inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-ink/85 transition-colors hover:border-accent/60 hover:text-accent'
-                }
+                className={cn(actionButton, primary ? 'bg-accent text-bg' : 'bg-surface text-ink')}
               >
                 <Icon size={16} />
                 {label}
@@ -101,7 +102,7 @@ export function HeroSection() {
             alt={`Portrait of ${profile.name}`}
             width={240}
             height={249}
-            className="h-36 w-36 rounded-2xl object-cover ring-1 ring-line sm:h-44 sm:w-44 md:h-auto md:w-full"
+            className="h-36 w-36 rounded-2xl border-2 border-edge object-cover shadow-hard-lg sm:h-44 sm:w-44 md:h-auto md:w-full"
           />
           <div className="mt-6 hidden md:block">
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted">Research interests</p>

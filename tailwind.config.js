@@ -24,6 +24,13 @@ module.exports = {
           DEFAULT: token('accent'),
           soft: token('accent-soft'),
         },
+        edge: token('edge'),
+      },
+      // Hard, unblurred offset shadows (neo-brutalist accent), coloured by --edge-shadow.
+      boxShadow: {
+        'hard-sm': '2px 2px 0 rgb(var(--edge-shadow))',
+        hard: '3px 3px 0 rgb(var(--edge-shadow))',
+        'hard-lg': '5px 5px 0 rgb(var(--edge-shadow))',
       },
       typography: {
         DEFAULT: {

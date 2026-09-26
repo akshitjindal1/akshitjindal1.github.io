@@ -13,18 +13,25 @@
     --line: 229 226 219;
     --accent: 15 118 110;
     --accent-soft: 228 242 239;
+    /* Hard outline and offset-shadow colours for the few "pressable" elements (buttons, portrait, figures). */
+    --edge: 22 24 29;
+    --edge-shadow: 22 24 29;
     color-scheme: light;
   }
 
   .dark {
-    --bg: 13 16 18;
-    --surface: 20 25 28;
+    /* Charcoal rather than near-black, so the black offset shadows below still read as cast shadows. */
+    --bg: 22 25 28;
+    --surface: 31 36 40;
     --ink: 231 233 236;
     --muted: 164 171 181;
     --faint: 112 120 131;
-    --line: 37 44 49;
+    --line: 46 53 58;
     --accent: 94 214 197;
     --accent-soft: 19 46 44;
+    /* Crisp light outline with a black shadow (a grey or accent-coloured shadow looks muddy on dark). */
+    --edge: 231 233 236;
+    --edge-shadow: 0 0 0;
     color-scheme: dark;
   }
 
@@ -59,6 +66,12 @@
 }
 
 @layer components {
+  /* Faint dot grid behind the page. */
+  .bg-dots {
+    background-image: radial-gradient(rgb(var(--ink) / 0.08) 1px, transparent 1.5px);
+    background-size: 22px 22px;
+  }
+
   /* Typography plugin wired to the theme tokens, so no prose-invert is needed. */
   .prose {
     --tw-prose-body: rgb(var(--ink) / 0.86);

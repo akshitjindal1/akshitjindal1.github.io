@@ -17,11 +17,11 @@ export function ProjectCard({ project }: { project: Project }) {
     <article className="grid gap-5 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-7">
       <div className="max-w-[260px] sm:max-w-none">
         {project.image ? (
-          <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg bg-white p-2 ring-1 ring-line">
+          <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg border-2 border-edge bg-white p-2 shadow-hard">
             <img src={project.image.src} alt={project.image.alt} loading="lazy" className="max-h-full w-full object-contain" />
           </div>
         ) : (
-          <div className="flex aspect-[4/3] items-center justify-center rounded-lg bg-accent-soft/60 text-accent ring-1 ring-line">
+          <div className="flex aspect-[4/3] items-center justify-center rounded-lg border-2 border-edge bg-accent-soft/60 text-accent shadow-hard">
             <Icon size={30} strokeWidth={1.5} />
           </div>
         )}

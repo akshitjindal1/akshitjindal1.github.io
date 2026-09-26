@@ -24,7 +24,7 @@ export function Layout({ children, title, description, image, jsonLd, noindex }:
   const canonical = `${SITE_CONFIG.siteUrl}${router.asPath === '/' ? '' : router.asPath.split(/[?#]/)[0]}`;
 
   return (
-    <div className="flex min-h-screen flex-col bg-bg text-ink">
+    <div className="bg-dots flex min-h-screen flex-col bg-bg text-ink">
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />

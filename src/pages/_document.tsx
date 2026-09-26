@@ -9,7 +9,7 @@ export default function Document() {
         <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f6" />
-        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d1012" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#16191c" />
       </Head>
       <body>
         <Main />
