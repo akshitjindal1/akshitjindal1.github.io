@@ -16,5 +16,6 @@ export const profile = {
     'Backdoor attacks & detection',
     'Adversarial machine learning',
     'Security of vision-language models',
+    'Agentic AI and computer-use-agent security (ongoing research)',
   ],
 };

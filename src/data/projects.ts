@@ -3,6 +3,15 @@ import { Project } from '@/lib/types';
 
 export const projects: Project[] = [
   {
+    title: 'Agentic AI and computer-use-agent security',
+    summary:
+      'Ongoing research on the security of agentic AI, including computer-use agents that interact with software interfaces.',
+    category: 'Research',
+    period: 'Ongoing research',
+    topics: ['Agentic AI', 'Computer-use agents'],
+    links: [],
+  },
+  {
     title: 'CLIP-Inspector',
     summary:
       'Model-level backdoor detection for prompt-tuned CLIP. With white-box access to a delivered model and a pool of unlabeled out-of-distribution images, it reconstructs candidate triggers for each class to decide whether the model is backdoored, reaching 94% detection accuracy (47 of 50 models) across ten datasets and four backdoor attacks. The reconstructed trigger can then be used to fine-tune the backdoor away.',
